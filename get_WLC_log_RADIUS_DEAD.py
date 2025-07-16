@@ -18,9 +18,9 @@ init(autoreset=True)
 from netmiko import ConnectHandler
 
 
-os.chdir('C:/Users/ffang/Downloads/python')
-current_dir = os.getcwd()
-print(f"current work directory：{current_dir}")
+#os.chdir('C:/Users/ffang/Downloads/python')
+#current_dir = os.getcwd()
+#print(f"current work directory：{current_dir}")
 
 load_dotenv(dotenv_path=".env")
 cisco_username = os.getenv("CISCO_USERNAME")
