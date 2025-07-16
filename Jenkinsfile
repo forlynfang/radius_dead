@@ -1,6 +1,13 @@
 pipeline {
     agent any  // 使用任意可用节点
-    stages {
+       stages {
+        stage('Checkout') {
+            steps {
+                checkout scm  // 拉取 GitHub 代码
+            }
+        }
+
+       stages {
         stage('Enable virtual environment pyats') {
             steps {
                 echo 'Setup PYATS environment'
@@ -18,20 +25,11 @@ pipeline {
                 sh 'pip3 install netmiko'
             }
         }
-         stage('Install dotenv') {
+        stage('Install dotenv') {
             steps {
                 sh 'pip3 install colorama'
             }
         }
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm  // 拉取 GitHub 代码
-            }
-        }
-
-
-
         stage('Setup Python') {
             steps {
                 sh 'python3 --version'  // 检查 Python 环境
