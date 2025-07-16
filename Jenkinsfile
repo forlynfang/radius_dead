@@ -11,6 +11,9 @@ pipeline {
         stage('Setup Python') {
             steps {
                 sh 'python3 --version'  // 检查 Python 环境
+                sh 'pip3 install dotenv'
+                sh 'pip3 install colorama'
+                sh 'pip3 install netmiko'
                 // 可选：安装依赖（如 pip install -r requirements.txt）
             }
         }
