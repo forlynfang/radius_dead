@@ -96,7 +96,11 @@ for device in cisco_device:
                 if target in line:
                     highlighted = line.replace(target, f"{Fore.RED}{target}{Style.RESET_ALL}")
                     with open(f"{host}output_previous.txt", 'r') as f1, open("output.txt", 'r') as f:
-                        if f1.read() == f.read():                  
+                        lines = f.readlines()
+                        line_count = len(lines)
+                        lines1 = f1.readlines()
+                        line_count1 = len(lines1)
+                        if f1.read() == f.read() or line_count < line_count1:                  
                             print(f"RADIUS_DEAD is found on {host} last time ")  # :ml-citation{ref="3,7" data="citationList"}                                                               
                         else:
                             print(f"{Fore.RED}{target}{Fore.WHITE}在{Fore.GREEN}{host}{Fore.WHITE}第 {line_num} 行: {highlighted.strip()}")
