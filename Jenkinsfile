@@ -14,6 +14,7 @@ pipeline {
                 sh 'pip3 install dotenv'
                 sh 'pip3 install colorama'
                 sh 'pip3 install netmiko'
+                sh 'pip3 install github'
                 // 可选：安装依赖（如 pip install -r requirements.txt）
             }
         }
