@@ -101,19 +101,19 @@ for device in cisco_device:
                         else:
                             print(f"{Fore.RED}{target}{Fore.WHITE}在{Fore.GREEN}{host}{Fore.WHITE}第 {line_num} 行: {highlighted.strip()}")
                             found = True
-                            teams_webhook_url = "https://aligntech.webhook.office.com/webhookb2/7ed9a6c7-e811-4e71-956c-9e54f8b7d705@9ac44c96-980a-481b-ae23-d8f56b82c605/JenkinsCI/9ecff2f044b44cfcae37b0376ecd1540/9d21b513-f4ee-4b3b-995c-7a422a087a6c/V2-0LzN76qekmVrAPO1b9pX-4MwxVsHKo7lbMnV_iHFb81"
-                            message = {
-                            "text": f"WARNING: RADIUS_DEAD is detected on {host}，please check RADIUS status on {host}."
-                            }
-                            try:
-                                teams_response = requests.post(
-                                teams_webhook_url,
-                                json=message,
-                                headers={"Content-Type": "application/json"}
-                            )
-                                teams_response.raise_for_status()
-                            except Exception as e:
-                                print(f"Failed to send alert to MS Teams for {host}")       
+                            #teams_webhook_url = "https://aligntech.webhook.office.com/webhookb2/7ed9a6c7-e811-4e71-956c-9e54f8b7d705@9ac44c96-980a-481b-ae23-d8f56b82c605/JenkinsCI/9ecff2f044b44cfcae37b0376ecd1540/9d21b513-f4ee-4b3b-995c-7a422a087a6c/V2-0LzN76qekmVrAPO1b9pX-4MwxVsHKo7lbMnV_iHFb81"
+                            #message = {
+                            #"text": f"WARNING: RADIUS_DEAD is detected on {host}，please check RADIUS status on {host}."
+                            #}
+                            #try:
+                                #teams_response = requests.post(
+                                #teams_webhook_url,
+                                #json=message,
+                                #headers={"Content-Type": "application/json"}
+                            #)
+                                #teams_response.raise_for_status()
+                            #except Exception as e:
+                                #print(f"Failed to send alert to MS Teams for {host}")       
                                 
             if not found:
                 print(f"No new RADIUS_DEAD is found on {host} ")  # :ml-citation{ref="3,7" data="citationList"}
