@@ -7,7 +7,8 @@ Set the Orchestrator and Token in environment
 export ORCHESTRATOR_HOST="your.orchestrator.host"
 export ORCH_TOKEN="your_secret_token_here"
 """
-
+from github import Github
+import base64
 import json
 import requests
 from urllib3.exceptions import InsecureRequestWarning
