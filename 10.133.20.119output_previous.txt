@@ -1,2 +1,1 @@
-Jul 16 09:37:21.040: %RADIUS_AUDIT_MESSAGE-6-RADIUS_DEAD: Chassis 1 R0/2: wncd: RADIUS server 10.146.30.48:1812,1813 is not responding.
-Jul 16 09:37:37.475: %RADIUS_AUDIT_MESSAGE-6-RADIUS_DEAD: Chassis 1 R0/4: wncd: RADIUS server 10.146.30.48:1812,1813 is not responding.
+
