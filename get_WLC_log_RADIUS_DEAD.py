@@ -100,6 +100,7 @@ for device in cisco_device:
                         line_count = len(lines)
                         lines1 = f1.readlines()
                         line_count1 = len(lines1)
+                        print(f"{line_count} and {line_count1} ")
                         if f1.read() == f.read():                  
                             print(f"RADIUS_DEAD is found on {host} last time ")  # :ml-citation{ref="3,7" data="citationList"}                                                               
                         else:
