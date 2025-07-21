@@ -152,7 +152,7 @@ def update_txt_with_api():
         update_data = {
             "message": "通过REST API更新txt文件",
             "content": base64.b64encode(new_content.encode('utf-8')).decode('utf-8'),
-            "sha": file_data['sha"],
+            "sha": file_data['sha'],
             "branch": BRANCH
         }
         
