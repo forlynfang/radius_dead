@@ -128,22 +128,22 @@ FILE_PATH = "{host}output_previous.txt"  # 要更新的txt文件路径
 BRANCH = "main"  # 默认分支名
 def upload_or_overwrite_txt_file():
     g = Github(GITHUB_TOKEN)
-        try:
-      # 获取仓库
-            repo = g.get_repo(REPO_NAME)
-            file = repo.get_contents(FILE_PATH, ref=BRANCH)
-            content = base64.b64decode(file.content).decode('utf-8')
-            modified_content = f.read()
-            repo.update_file(
-                path=FILE_PATH,
-                message="通过Python脚本更新txt文件",
-                content=modified_content,
-                sha=file.sha,
-                branch=BRANCH
-            )
-            print(f"成功更新文件 {FILE_PATH}")
+    try:
+  # 获取仓库
+        repo = g.get_repo(REPO_NAME)
+        file = repo.get_contents(FILE_PATH, ref=BRANCH)
+        content = base64.b64decode(file.content).decode('utf-8')
+        modified_content = f.read()
+        repo.update_file(
+            path=FILE_PATH,
+            message="通过Python脚本更新txt文件",
+            content=modified_content,
+            sha=file.sha,
+            branch=BRANCH
+        )
+        print(f"成功更新文件 {FILE_PATH}")
 
-        except Exception as e:
-            print(f"发生错误: {str(e)}")
+    except Exception as e:
+        print(f"发生错误: {str(e)}")
 if __name__ == "__main__":
     update_txt_with_git()
