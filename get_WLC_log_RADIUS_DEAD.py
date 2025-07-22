@@ -121,23 +121,23 @@ for device in cisco_device:
 
             with open(f"{host}output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
                 f.write(text)
-            GITHUB_TOKEN = "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"
+            #GITHUB_TOKEN = "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"
             REPO_NAME = "forlynfang/radius_dead"  # 例如 "yourusername/yourrepo"
             FILE_PATH = f"{host}output_previous.txt"  # 要更新的txt文件路径
             BRANCH = "main"  # 默认分支名
             def update_txt_with_api():
                 # 设置请求头
-                headers = {
-                    "Authorization": f"token {GITHUB_TOKEN}",
-                    "Accept": "application/vnd.github.v3+json"
-                }
+                #headers = {
+                    #"Authorization": f"token {GITHUB_TOKEN}",
+                    #"Accept": "application/vnd.github.v3+json"
+                #}
                 
                 # 获取文件当前内容的URL
                 url = f"https://api.github.com/repos/{REPO_NAME}/contents/{FILE_PATH}?ref={BRANCH}"
                 
                 try:
                     # 获取当前文件信息
-                    response = requests.get(url, headers=headers)
+                    response = requests.get(url)
                     response.raise_for_status()
                     file_data = response.json()
                     
@@ -157,7 +157,7 @@ for device in cisco_device:
                     }
                     
                     # 发送更新请求
-                    update_response = requests.put(url, headers=headers, json=update_data)
+                    update_response = requests.put(url, json=update_data)
                     update_response.raise_for_status()
                     
                     print("文件更新成功！")
