@@ -121,7 +121,7 @@ for device in cisco_device:
 
             with open(f"{host}output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
                 f.write(text)
-            GITHUB_TOKEN = "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"
+            GITHUB_TOKEN = "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"
             REPO_NAME = "forlynfang/radius_dead"  # 例如 "yourusername/yourrepo"
             FILE_PATH = f"{host}output_previous.txt"  # 要更新的txt文件路径
             BRANCH = "main"  # 默认分支名
