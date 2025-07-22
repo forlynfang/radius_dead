@@ -24,7 +24,11 @@ from netmiko import ConnectHandler
 
 load_dotenv(dotenv_path=".env")
 cisco_username = os.getenv("CISCO_USERNAME")
-cisco_password = os.getenv("CISCO_PASSWORD")
+cisco_password = os.getenv("CISCO_PASSWORD")           
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+REPO_NAME = "forlynfang/radius_dead"  # 例如 "yourusername/yourrepo"
+FILE_PATH = f"{host}output_previous.txt"  # 要更新的txt文件路径
+BRANCH = "main"  # 默认分支名
 
 # 定义设备连接参数
 cisco_device = [
@@ -120,11 +124,6 @@ for device in cisco_device:
 
             with open(f"{host}output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
                 f.write(text)
-load_dotenv(dotenv_path=".env")                   
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-REPO_NAME = "forlynfang/radius_dead"  # 例如 "yourusername/yourrepo"
-FILE_PATH = f"{host}output_previous.txt"  # 要更新的txt文件路径
-BRANCH = "main"  # 默认分支名
 def update_txt_with_api():
     # 设置请求头
     headers = {
