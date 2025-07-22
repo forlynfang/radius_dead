@@ -96,8 +96,8 @@ for device in cisco_device:
             for line_num, line in enumerate(f, 1):
                 if target in line:
                     highlighted = line.replace(target, f"{Fore.RED}{target}{Style.RESET_ALL}")
-                    with open(f"{host}output_previous.txt", 'r') as f1, open("output.txt", 'r') as f:
-                        if f1.read() == f.read():                  
+                    with open(f"{host}output_previous.txt", 'r') as f1, open("output.txt", 'r') as f2:
+                        if f1.read() == f2.read():                  
                             print(f"RADIUS_DEAD is found on {host} last time ")  # :ml-citation{ref="3,7" data="citationList"}                                                               
                         else:
                             print(f"{Fore.RED}{target}{Fore.WHITE}在{Fore.GREEN}{host}{Fore.WHITE}第 {line_num} 行: {highlighted.strip()}")
@@ -119,8 +119,8 @@ for device in cisco_device:
             if not found:
                 print(f"No new RADIUS_DEAD is found on {host} ")  # :ml-citation{ref="3,7" data="citationList"}
 
-            with open(f"{host}output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
-                f.write(text)
+            #with open(f"{host}output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
+                #f.write(text)
             #GITHUB_TOKEN = "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"
             REPO_NAME = "forlynfang/radius_dead"  # 例如 "yourusername/yourrepo"
             FILE_PATH = f"{host}output_previous.txt"  # 要更新的txt文件路径
