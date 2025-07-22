@@ -135,9 +135,10 @@ for device in cisco_device:
                 exit()
             
             sha = response.json()["sha"]
+            print(sha)
             
             # 更新文件内容
-            new_content = "test"  # 替换成你的新内容
+            new_content = f.read()  # 替换成你的新内容
             encoded_content = base64.b64encode(new_content.encode("utf-8")).decode("utf-8")
             
             # 提交更新
