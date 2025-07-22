@@ -121,50 +121,50 @@ for device in cisco_device:
 
             with open(f"{host}output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
                 f.write(text)
-REPO_NAME = "forlynfang/radius_dead"  # 例如 "yourusername/yourrepo"
-FILE_PATH = f"{host}output_previous.txt"  # 要更新的txt文件路径
-BRANCH = "main"  # 默认分支名
-def update_txt_with_api():
-    # 设置请求头
-    headers = {
-        "Authorization": f"token {GITHUB_TOKEN}",
-        "Accept": "application/vnd.github.v3+json"
-    }
-    
-    # 获取文件当前内容的URL
-    url = f"https://api.github.com/repos/{REPO_NAME}/contents/{FILE_PATH}?ref={BRANCH}"
-    
-    try:
-        # 获取当前文件信息
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        file_data = response.json()
-        
-        # 解码内容
-        current_content = base64.b64decode(file_data['content']).decode('utf-8')
-        print("当前文件内容:")
-        print(current_content)
-        
-        # 修改内容
-        new_content = f.read()
-        # 准备更新数据
-        update_data = {
-            "message": "通过REST API更新txt文件",
-            "content": base64.b64encode(new_content.encode('utf-8')).decode('utf-8'),
-            "sha": file_data['sha'],
-            "branch": BRANCH
-        }
-        
-        # 发送更新请求
-        update_response = requests.put(url, headers=headers, json=update_data)
-        update_response.raise_for_status()
-        
-        print("文件更新成功！")
-        
-    except requests.exceptions.RequestException as e:
-        print(f"请求失败: {str(e)}")
-        if hasattr(e, 'response') and e.response is not None:
-            print(f"错误详情: {e.response.json()}")
-
-if __name__ == "__main__":
-    update_txt_with_api()
+            REPO_NAME = "forlynfang/radius_dead"  # 例如 "yourusername/yourrepo"
+            FILE_PATH = f"{host}output_previous.txt"  # 要更新的txt文件路径
+            BRANCH = "main"  # 默认分支名
+            def update_txt_with_api():
+                # 设置请求头
+                headers = {
+                    "Authorization": f"token {GITHUB_TOKEN}",
+                    "Accept": "application/vnd.github.v3+json"
+                }
+                
+                # 获取文件当前内容的URL
+                url = f"https://api.github.com/repos/{REPO_NAME}/contents/{FILE_PATH}?ref={BRANCH}"
+                
+                try:
+                    # 获取当前文件信息
+                    response = requests.get(url, headers=headers)
+                    response.raise_for_status()
+                    file_data = response.json()
+                    
+                    # 解码内容
+                    current_content = base64.b64decode(file_data['content']).decode('utf-8')
+                    print("当前文件内容:")
+                    print(current_content)
+                    
+                    # 修改内容
+                    new_content = f.read()
+                    # 准备更新数据
+                    update_data = {
+                        "message": "通过REST API更新txt文件",
+                        "content": base64.b64encode(new_content.encode('utf-8')).decode('utf-8'),
+                        "sha": file_data['sha'],
+                        "branch": BRANCH
+                    }
+                    
+                    # 发送更新请求
+                    update_response = requests.put(url, headers=headers, json=update_data)
+                    update_response.raise_for_status()
+                    
+                    print("文件更新成功！")
+                    
+                except requests.exceptions.RequestException as e:
+                    print(f"请求失败: {str(e)}")
+                    if hasattr(e, 'response') and e.response is not None:
+                        print(f"错误详情: {e.response.json()}")
+            
+            if __name__ == "__main__":
+                update_txt_with_api()
