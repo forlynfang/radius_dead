@@ -10,7 +10,6 @@ export ORCH_TOKEN="your_secret_token_here"
 import base64
 import json
 import requests
-from ftplib import FTP
 from urllib3.exceptions import InsecureRequestWarning
 from ftplib import FTP
 import os
@@ -150,22 +149,22 @@ for device in cisco_device:
             if not found:
                 print(f"No new RADIUS_DEAD is found on {host} ")  # :ml-citation{ref="3,7" data="citationList"}
 
-            def upload_text_file(host, username, password, local_path, remote_path):
-            """上传文本文件到FTP服务器"""
-                try:
-                    with FTP(host) as ftp:
-                        ftp.login(user=username, passwd=password)
-                        
-                        with open(local_path, 'rb') as f:
-                            ftp.storbinary(f'STOR {remote_path}', f)
-                        
-                        print(f"文件 {local_path} 已上传到 {remote_path}")
-                        return True
-                except Exception as e:
-                    print(f"上传文件失败: {str(e)}")
-                    return False
+        def upload_text_file(hostip, username, password, local_path, remote_path):
+        """上传文本文件到FTP服务器"""
+            try:
+                with FTP(hostip) as ftp:
+                    ftp.login(user=username, passwd=password)
+                    
+                    with open(local_path, 'rb') as f:
+                        ftp.storbinary(f'STOR {remote_path}', f)
+                    
+                    print(f"文件 {local_path} 已上传到 {remote_path}")
+                    return True
+            except Exception as e:
+                print(f"上传文件失败: {str(e)}")
+                return False
 
-            # 使用示例
-            with open(f"{host}output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
-                f.write(text)
-            upload_text_file('10.133.10.115', 'apacftp', 'P@ssw0rd', f'{host}output_previous.txt', f'/python/{host}output_previous.txt')
+        # 使用示例
+        with open(f"{host}output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
+            f.write(text)
+        upload_text_file('10.133.10.115', 'apacftp', 'P@ssw0rd', f'{host}output_previous.txt', f'/python/{host}output_previous.txt')
