@@ -10,7 +10,9 @@ export ORCH_TOKEN="your_secret_token_here"
 import base64
 import json
 import requests
+from ftplib import FTP
 from urllib3.exceptions import InsecureRequestWarning
+from ftplib import FTP
 import os
 from colorama import init, Fore, Style
 from dotenv import load_dotenv
@@ -66,7 +68,7 @@ cisco_device = [
     }
 ]
 
-# 建立连接并执行命令
+
 for device in cisco_device:
         host = device['host']
         
@@ -96,8 +98,37 @@ for device in cisco_device:
             for line_num, line in enumerate(f, 1):
                 if target in line:
                     highlighted = line.replace(target, f"{Fore.RED}{target}{Style.RESET_ALL}")
-                    with open(f"{host}output_previous.txt", 'r') as f1, open("output.txt", 'r') as f2:
-                        if f1.read() == f2.read():                  
+                    def read_ftp_file(hostip, username, password, remote_path):
+                    """读取FTP服务器上的文本文件"""
+                        try:
+                            with FTP(hostip) as ftp:
+                                ftp.login(user=username, passwd=password)
+                                
+                                # 创建临时文件
+                                temp_file = 'temp_ftp_download.txt'
+                                
+                                with open(temp_file, 'wb') as f:
+                                    ftp.retrbinary(f'RETR {remote_path}', f.write)
+                                
+                                # 读取文件内容
+                                with open(temp_file, 'r', encoding='utf-8') as f:
+                                    content = f.read()
+                                
+                                # 删除临时文件
+                                os.remove(temp_file)
+                                
+                                return content
+                        except Exception as e:
+                            print(f"读取文件失败: {str(e)}")
+                            return None
+                    
+                    # 使用示例
+                    content = read_ftp_file('10.133.10.115', 'apacftp', 'P@ssw0rd', f'/python/{host}output_previous.txt')
+                    #if content:
+                    #print("文件内容:", content)
+                    
+                    with open("output.txt", 'r') as f1:
+                        if f1.read() == content:                   
                             print(f"RADIUS_DEAD is found on {host} last time ")  # :ml-citation{ref="3,7" data="citationList"}                                                               
                         else:
                             print(f"{Fore.RED}{target}{Fore.WHITE}在{Fore.GREEN}{host}{Fore.WHITE}第 {line_num} 行: {highlighted.strip()}")
@@ -119,40 +150,22 @@ for device in cisco_device:
             if not found:
                 print(f"No new RADIUS_DEAD is found on {host} ")  # :ml-citation{ref="3,7" data="citationList"}
 
-            #with open(f"{host}output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
-                #f.write(text)
-            REPO_OWNER = "forlynfang"
-            REPO_NAME = "radius_dead"
-            FILE_PATH = f"{host}output_previous.txt"
-            BRANCH = "main"
-            
-            # 获取当前文件的 SHA（必须提供，用于更新）
-            url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}?ref={BRANCH}"
-            response = requests.get(url)
-            
-            if response.status_code != 200:
-                print(f"获取文件 SHA 失败: {response.text}")
-                exit()
-            
-            sha = response.json()["sha"]
-            print(sha)
-            
-            # 更新文件内容
-            new_content = f.read()  # 替换成你的新内容
-            encoded_content = base64.b64encode(new_content.encode("utf-8")).decode("utf-8")
-            
-            # 提交更新
-            update_url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
-            data = {
-                "message": "Update TXT file via API",
-                "content": encoded_content,
-                "sha": sha,  # 必须提供原文件的 SHA
-                "branch": BRANCH
-            }
-            
-            response = requests.put(update_url, json=data)
-            
-            if response.status_code == 200:
-                print("文件更新成功！")
-            else:
-                print(f"更新失败: {response.status_code} - {response.text}")
+            def upload_text_file(host, username, password, local_path, remote_path):
+            """上传文本文件到FTP服务器"""
+                try:
+                    with FTP(host) as ftp:
+                        ftp.login(user=username, passwd=password)
+                        
+                        with open(local_path, 'rb') as f:
+                            ftp.storbinary(f'STOR {remote_path}', f)
+                        
+                        print(f"文件 {local_path} 已上传到 {remote_path}")
+                        return True
+                except Exception as e:
+                    print(f"上传文件失败: {str(e)}")
+                    return False
+
+            # 使用示例
+            with open(f"{host}output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
+                f.write(text)
+            upload_text_file('10.133.10.115', 'apacftp', 'P@ssw0rd', f'{host}output_previous.txt', f'/python/{host}output_previous.txt')
