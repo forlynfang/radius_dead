@@ -98,7 +98,6 @@ for device in cisco_device:
                 if target in line:
                     highlighted = line.replace(target, f"{Fore.RED}{target}{Style.RESET_ALL}")
                     def read_ftp_file(hostip, username, password, remote_path):
-                    """读取FTP服务器上的文本文件"""
                         try:
                             with FTP(hostip) as ftp:
                                 ftp.login(user=username, passwd=password)
@@ -150,7 +149,6 @@ for device in cisco_device:
                 print(f"No new RADIUS_DEAD is found on {host} ")  # :ml-citation{ref="3,7" data="citationList"}
 
         def upload_text_file(hostip, username, password, local_path, remote_path):
-        """上传文本文件到FTP服务器"""
             try:
                 with FTP(hostip) as ftp:
                     ftp.login(user=username, passwd=password)
