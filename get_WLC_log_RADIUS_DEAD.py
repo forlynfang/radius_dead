@@ -32,35 +32,35 @@ cisco_password = os.getenv("CISCO_PASSWORD")
 cisco_device = [
     {
         'device_type': 'cisco_ios',  # 设备类型固定值
-        'host': '10.133.20.119',
+        'host': 'cnchen02wc01',
         'username': cisco_username,
         'password': cisco_password,
         'port': 22,  # 默认SSH端口
     },
     {
         'device_type': 'cisco_ios',  # 设备类型固定值
-        'host': '10.127.230.5',
+        'host': 'sgsing01wc01',
         'username': cisco_username,
         'password': cisco_password,
         'port': 22,  # 默认SSH端口
     },
     {
         'device_type': 'cisco_ios',  # 设备类型固定值
-        'host': '10.121.230.9',
+        'host': 'jptkyo01wc01',
         'username': cisco_username,
         'password': cisco_password,
         'port': 22,  # 默认SSH端口
     },
     {
         'device_type': 'cisco_ios',  # 设备类型固定值
-        'host': '10.152.230.5',
+        'host': 'inhdrb02wc01',
         'username': cisco_username,
         'password': cisco_password,
         'port': 22,  # 默认SSH端口
     },
     {
         'device_type': 'cisco_ios',  # 设备类型固定值
-        'host': '10.146.230.253',
+        'host': 'cnzyng02wc01',
         'username': cisco_username,
         'password': cisco_password,
         'port': 22,  # 默认SSH端口
