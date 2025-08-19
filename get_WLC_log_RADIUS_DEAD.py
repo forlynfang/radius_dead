@@ -124,13 +124,27 @@ for device in cisco_device:
                     content = read_ftp_file('10.133.10.115', 'apacftp', 'P@ssw0rd', f'/python/{host}output_previous.txt')
                     #if content:
                     #print("文件内容:", content)
-                    
-                    with open("output.txt", 'r') as f1:
-                        if f1.read() == content:                   
-                            print(f"RADIUS_DEAD is found on {host} last time ")  # :ml-citation{ref="3,7" data="citationList"}                                                               
+                    with open("output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
+                        f.write(content)
+                    with open("output.txt", 'r') as f1, open("output_previous.txt", 'r') as f2:    
+                        lines1 = f1.readlines()
+                        lines2 = f2.readlines()
+                        line_count1 = len(lines1)
+                        line_count2 = len(lines2)
+                        print(f"line1={line_count1} and line2={line_count2}")
+                        if line_count1 < line_count2 and line_count2 != 0:                  
+                            print(f"RADIUS_DEAD is found on {host} last time ")  # :ml-citation{ref="3,7" data="citationList"}                                                                                   
+                        if line_count1 == line_count2 and f1.read() == f2.read():                  
+                            print(f"RADIUS_DEAD is found on {host} last time ")  # :ml-citation{ref="3,7" data="citationList"}             
                         else:
                             print(f"{Fore.RED}{target}{Fore.WHITE}在{Fore.GREEN}{host}{Fore.WHITE}第 {line_num} 行: {highlighted.strip()}")
                             found = True
+                    #with open("output.txt", 'r') as f1:
+                        #if f1.read() == content:                   
+                            #print(f"RADIUS_DEAD is found on {host} last time ")  # :ml-citation{ref="3,7" data="citationList"}                                                               
+                        #else:
+                            #print(f"{Fore.RED}{target}{Fore.WHITE}在{Fore.GREEN}{host}{Fore.WHITE}第 {line_num} 行: {highlighted.strip()}")
+                            #found = True
                             teams_webhook_url = "https://aligntech.webhook.office.com/webhookb2/7ed9a6c7-e811-4e71-956c-9e54f8b7d705@9ac44c96-980a-481b-ae23-d8f56b82c605/JenkinsCI/9ecff2f044b44cfcae37b0376ecd1540/9d21b513-f4ee-4b3b-995c-7a422a087a6c/V2-0LzN76qekmVrAPO1b9pX-4MwxVsHKo7lbMnV_iHFb81"
                             message = {
                             "text": f"WARNING: RADIUS_DEAD is detected on {host}，please check RADIUS status on {host}."
