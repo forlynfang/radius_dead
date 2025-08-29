@@ -132,10 +132,8 @@ for device in cisco_device:
                         line_count1 = len(lines1)
                         line_count2 = len(lines2)
                         print(f"line1={line_count1} and line2={line_count2}")
-                        if line_count1 < line_count2 and line_count2 != 0:                  
+                        if line_count1 <= line_count2 and line_count2 != 0:                  
                             print(f"RADIUS_DEAD is found on {host} last time ")  # :ml-citation{ref="3,7" data="citationList"}                                                                                   
-                        if line_count1 == line_count2 and f1.read() == f2.read():                  
-                            print(f"RADIUS_DEAD is found on {host} last time ")  # :ml-citation{ref="3,7" data="citationList"}             
                         else:
                             print(f"{Fore.RED}{target}{Fore.WHITE}在{Fore.GREEN}{host}{Fore.WHITE}第 {line_num} 行: {highlighted.strip()}")
                             found = True
