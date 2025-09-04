@@ -1,0 +1,27 @@
+# 隐藏所有 .env 文件
+.env
+
+# 隐藏所有 .env 开头的文件
+.env*
+
+# 隐藏特定文件
+config/secrets.yml
+
+# 隐藏目录
+node_modules/
+vendor/
+__pycache__/
+*.pyc
+
+# 隐藏日志文件
+*.log
+
+# 隐藏系统文件
+.DS_Store
+Thumbs.db
+
+# 隐藏IDE配置文件
+.vscode/
+.idea/
+*.swp
+*.swo
