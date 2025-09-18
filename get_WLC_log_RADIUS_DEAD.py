@@ -96,7 +96,7 @@ for device in cisco_device:
             found = False
             for line_num, line in enumerate(f, 1):
                 if target in line:
-                    highlighted = line.replace(target, f"{Fore.RED}{target}{Style.RESET_ALL}")
+                    highlighted = line.replace(target, f"{target}{Style.RESET_ALL}")
                     def read_ftp_file(hostip, username, password, remote_path):
                         try:
                             with FTP(hostip) as ftp:
