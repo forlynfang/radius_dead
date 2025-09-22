@@ -40,6 +40,7 @@ pipeline {
                    
                     // 执行你的 Python 脚本
                     sh 'python3 get_WLC_log_RADIUS_DEAD.py'  // 运行 Python 文件
+                }   
             }
         }
     }
