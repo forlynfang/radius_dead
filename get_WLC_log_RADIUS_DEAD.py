@@ -24,9 +24,10 @@ from netmiko import ConnectHandler
 #print(f"current work directory：{current_dir}")
 
 load_dotenv(dotenv_path=".env")
-cisco_username = os.getenv("CISCO_USERNAME")
-cisco_password = os.getenv("CISCO_PASSWORD")           
-
+cisco_username = os.environ.get('CISCO_USERNAME')
+cisco_password = os.environ.get('CISCO_PASSWORD')           
+ftp_username = os.environ.get('FTP_USERNAME')
+ftp_password = os.environ.get('FTP_PASSWORD') 
 
 # 定义设备连接参数
 cisco_device = [
@@ -121,7 +122,7 @@ for device in cisco_device:
                             return None
                     
                     # 使用示例
-                    content = read_ftp_file('10.133.10.115', 'vvvvv', 'xxxxx', f'/python/{host}output_previous.txt')
+                    content = read_ftp_file('10.133.10.115', ftp_username, ftp_password, f'/python/{host}output_previous.txt')
                     #if content:
                     #print("文件内容:", content)
                     with open("output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
@@ -177,4 +178,4 @@ for device in cisco_device:
         # 使用示例
         with open(f"{host}output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
             f.write(text)
-        upload_text_file('10.133.10.115', 'vvvvv', 'xxxxxx', f'{host}output_previous.txt', f'/python/{host}output_previous.txt')
+        upload_text_file('10.133.10.115', ftp_username, ftp_password, f'{host}output_previous.txt', f'/python/{host}output_previous.txt')
