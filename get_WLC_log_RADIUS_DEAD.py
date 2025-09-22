@@ -23,7 +23,7 @@ from netmiko import ConnectHandler
 #current_dir = os.getcwd()
 #print(f"current work directory：{current_dir}")
 
-load_dotenv(dotenv_path=".env")
+#load_dotenv(dotenv_path=".env")
 cisco_username = os.environ.get('CISCO_USERNAME')
 cisco_password = os.environ.get('CISCO_PASSWORD')           
 ftp_username = os.environ.get('FTP_USERNAME')
