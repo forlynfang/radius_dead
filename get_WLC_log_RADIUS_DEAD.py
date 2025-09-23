@@ -129,11 +129,14 @@ for device in cisco_device:
                         f.write(content)
                     with open("output.txt", 'r') as f1, open("output_previous.txt", 'r') as f2:    
                         lines_c = f1.readlines()
-                        lines_p = f2.readlines()
+                        lines_p = [line.rstrip('\n') for line in f2.readlines()]
+                        lines_cc = line.rstrip('\n')
                         line_count_c = len(lines_c)
                         line_count_p = len(lines_p)
                         print(f"line1={line_count_c} and line2={line_count_p}")
-                        if line in lines_p :                     
+                        print(f"{lines_cc}")
+                        print(f"{lines_p}")
+                        if lines_cc in lines_p :           
                             print(f"RADIUS_DEAD is found on {host} last time ")  # :ml-citation{ref="3,7" data="citationList"}                                                                                   
                         else:
                             print(f"{Fore.RED}{target}{Fore.WHITE}在{Fore.GREEN}{host}{Fore.WHITE}第 {line_num} 行: {highlighted.strip()}")
