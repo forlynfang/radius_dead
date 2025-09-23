@@ -128,12 +128,12 @@ for device in cisco_device:
                     with open("output_previous.txt", "w", encoding="utf-8") as f:  # 推荐指定编码
                         f.write(content)
                     with open("output.txt", 'r') as f1, open("output_previous.txt", 'r') as f2:    
-                        lines1 = f1.readlines()
-                        lines2 = f2.readlines()
-                        line_count1 = len(lines1)
-                        line_count2 = len(lines2)
-                        print(f"line1={line_count1} and line2={line_count2}")
-                        if line_count1 <= line_count2 and line_count2 != 0:                  
+                        lines_c = f1.readlines()
+                        lines_p = f2.readlines()
+                        line_count_c = len(lines_c)
+                        line_count_p = len(lines_p)
+                        print(f"line1={line_count_c} and line2={line_count_p}")
+                        if line in lines_p :                     
                             print(f"RADIUS_DEAD is found on {host} last time ")  # :ml-citation{ref="3,7" data="citationList"}                                                                                   
                         else:
                             print(f"{Fore.RED}{target}{Fore.WHITE}在{Fore.GREEN}{host}{Fore.WHITE}第 {line_num} 行: {highlighted.strip()}")
